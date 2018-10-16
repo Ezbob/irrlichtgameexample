@@ -1,21 +1,30 @@
 cmake_minimum_required(VERSION 3.0)
 project(gamec++)
 
+# setting variable BINARY
+set(BINARY example)
+
+# we can put custom Find<library>.cmake files here
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
+# globbing to find the sources
 file(GLOB_RECURSE sources src/main/*.cpp src/main/*.hpp)
+# and test sources
 file(GLOB_RECURSE sources_test src/test/*.cpp)
-file(GLOB_RECURSE data resources/*)
 
+# cmake needs to find the irrlicht lib. There are some predefined Find files which cmake uses
+# but sometimes we have to make our own
 find_package(irrlicht REQUIRED)
 
-add_executable(example ${sources} ${data})
+# We need a binary from sources
+add_executable(${BINARY} ${sources})
 
-target_compile_options(example PUBLIC -std=c++11 -Wall -Wextra -pedantic)
+# compiler flags
+target_compile_options(${BINARY} PUBLIC -std=c++11 -Wall -Wextra -pedantic)
 
-target_include_directories(example PUBLIC src/main)
+# -I <dirname> in g++ terms. namely which directories we should look for headers in
+target_include_directories(${BINARY} PUBLIC src/main)
 
-file(COPY ${data} DESTINATION resources)
-
-target_link_libraries(example ${irrlicht_LIBRARIES})
+# we need to link the libraries into our executable
+target_link_libraries(${BINARY} ${irrlicht_LIBRARIES})
 
