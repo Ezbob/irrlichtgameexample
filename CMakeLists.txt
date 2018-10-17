@@ -29,5 +29,5 @@ target_include_directories(${BINARY} PUBLIC
 )
 
 # we need to link the libraries into our executable
-target_link_libraries(${BINARY} ${IRRLICHT_LIBRARIES})
+target_link_libraries(${BINARY} ${IRRLICHT_LIBRARY})
 
