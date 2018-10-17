@@ -23,8 +23,11 @@ add_executable(${BINARY} ${sources})
 target_compile_options(${BINARY} PUBLIC -std=c++11 -Wall -Wextra -pedantic)
 
 # -I <dirname> in g++ terms. namely which directories we should look for headers in
-target_include_directories(${BINARY} PUBLIC src/main)
+target_include_directories(${BINARY} PUBLIC
+    src/main
+    ${IRRLICHT_INCLUDE_DIR}
+)
 
 # we need to link the libraries into our executable
-target_link_libraries(${BINARY} ${irrlicht_LIBRARIES})
+target_link_libraries(${BINARY} ${IRRLICHT_LIBRARIES})
 
